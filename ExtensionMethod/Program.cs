@@ -53,7 +53,7 @@ namespace ExtensionMethod
             return maxArrayElement;
         }
 
-
+        //This method takes an IEnumarable and returns the first element 
         public static TSource? FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             foreach(TSource source1 in source) 
