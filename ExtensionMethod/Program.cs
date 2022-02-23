@@ -7,7 +7,7 @@ namespace ExtensionMethod
         static void Main()
         {
             int[] numbers = new int[] { 10, 5, 1, 887, 10009937, 9, 4 };
-            List<int> list = new List<int>() { 76, 988, 9, 3987, 6098765, 0};
+            List<int> list = new List<int>() { 19, 76, 988, 9, 3987, 6098765, 0};
 
             //Pass an array to our method and return the maximum value
            
@@ -15,9 +15,19 @@ namespace ExtensionMethod
           
             int maxList = list.MaxArrayElement(i => i);
 
+            //Call FirstOrDefault 
+            var max2 = numbers.FirstOrDefault(numbers[0]);
+            var max3 = list.FirstOrDefault(numbers[0]);
+
+
             Console.WriteLine($"The maximum value in the array of numbers {{10, 5, 1, 887, 10009937, 9, 4}} is: {max}");
-            
+    
             Console.WriteLine($"The maximum value in the collection of numbers {{76, 909, 9, 3, 63, 0}} is: {maxList}");
+
+            Console.WriteLine("\n xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            Console.WriteLine(max2);
+            Console.WriteLine(max3);
+
 
 
         }
@@ -44,6 +54,15 @@ namespace ExtensionMethod
         }
 
 
+        public static TSource? FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            foreach(TSource source1 in source) 
+            { 
+                predicate(source1); 
+            }
+
+            return source.FirstOrDefault(predicate);
+        }
 
 
 
