@@ -6,8 +6,8 @@ namespace ExtensionMethod
     {
         static void Main()
         {
-            int[] numbers = new int[] { 10, 5, 1, 887, 10009937, 9, 4 };
-            List<int> list = new List<int>() { 19, 76, 988, 9, 3987, 6098765, 0};
+            int[] numbers = new int[] { 10, 50, 9, 887, 7, 9, 4, 2 };
+            List<int> list = new List<int>() { 190, 76, 988, 9, 11, 6, 0};
 
             //Pass an array to our method and return the maximum value
            
@@ -16,17 +16,16 @@ namespace ExtensionMethod
             int maxList = list.MaxArrayElement(i => i);
 
             //Call FirstOrDefault 
-            var max2 = numbers.FirstOrDefault(numbers[0]);
-            var max3 = list.FirstOrDefault(numbers[0]);
+            var max2 = numbers.FirstOrDefault(x => x.Equals(2));
+            var max3 = list.FirstOrDefault(x => x > 200);
 
-
-            Console.WriteLine($"The maximum value in the array of numbers {{10, 5, 1, 887, 10009937, 9, 4}} is: {max}");
-    
-            Console.WriteLine($"The maximum value in the collection of numbers {{76, 909, 9, 3, 63, 0}} is: {maxList}");
+            //string function to display strings with formating
+            Console.WriteLine($"The maximum value in the array of numbers {{{string.Join(", ", numbers)}}} is: {max}");
+            Console.WriteLine($"The maximum value in the collection of numbers {{{string.Join(", ", list)}}} is: {maxList}");
 
             Console.WriteLine("\n xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-            Console.WriteLine(max2);
-            Console.WriteLine(max3);
+            Console.WriteLine($"Your collection {{{string.Join(", ", numbers)}}} contains {max2}");
+            Console.WriteLine($"The first element of your collection {{{string.Join(", ", list)}}} greater than 200 is:   {max3}");
 
 
 
@@ -41,7 +40,8 @@ namespace ExtensionMethod
         //This methods takes a collection of numbers and returns the maximum element
         public static int MaxArrayElement<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector)
         {
-            int maxArrayElement = 0;
+            //MinValue is a field of integer class. It's the default minimun value of integers
+            int maxArrayElement = int.MinValue;
            
             foreach(TSource item in source)
             {
@@ -56,12 +56,15 @@ namespace ExtensionMethod
         //This method takes an IEnumarable and returns the first element 
         public static TSource? FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            foreach(TSource source1 in source) 
-            { 
-                predicate(source1); 
+            foreach(TSource item in source) 
+            {
+                if (predicate(item))
+                {
+                    return (item);
+                }
             }
 
-            return source.FirstOrDefault(predicate);
+            return default(TSource);
         }
 
 
